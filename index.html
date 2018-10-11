@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" type="image/x-icon" href="Math.ico" />
+  <link rel="mask-icon" type="" href="Math.svg" color="#111" />
+  <title>Math - Learn</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+ 
+      <style>   
+
+/* onclick="myFunction()"*/
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  top: 0;
+  width: 100%;
+  font-family: "impact";
+  position: fixed;
+  z-index: 10;
+
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #d60000;
+
+}
+
+.active {
+  background-color: red;
+
+}
+
+ul.vertical{
+   list-style-type: none;
+    margin: 0;
+    padding: 0;
+    top: 47px;
+    width: 145px;
+    background-color: #333;
+    position: absolute;
+    z-index: 5;
+
+}
+
+ul.vertical li a {
+    display: block;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+ul.vertical li a:hover:not(.active) {
+     background-color: #d60000;
+    color: white;
+
+}
+
+
+ul.vertical a.active {
+    background-color: red;
+    color: white;
+
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: left;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.center {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    margin-left: 5px;
+    margin-top: 10px;
+    z-index: 10px;
+
+}
+
+.closebtn2 {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 10px;
+
+}
+
+.closebtn2:hover {
+    color: black;
+    z-index: 10px;
+
+}
+
+@font-face 
+{
+  font-family: 'MatrixCode';
+  src: url("matrix code nfi.otf") format("opentype");
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  background: #3a3a3a;
+ 
+}
+canvas {
+position: absolute;
+font-family: 'MatrixCode';
+top: 0;
+left:0;
+width: 100%;
+height: 130%;
+overflow: hidden;
+z-index: -1;
+}
+canvas {
+  overflow: hidden;
+}
+
+.canvas {
+  overflow-x:hidden;
+}
+
+        
+                h1{
+          animation: moving 2s ease-in;
+          z-index: 10;
+        }
+        
+        h1:hover {
+  color: red;
+}
+        
+                @keyframes moving {
+  0% {
+    transform: translateY(-250px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+
+
+    </style>
+
+  
+  
+  
+  
+</head>
+
+<body translate="no" >
+
+  <head>
+  <style>
+@import url('https://fonts.googleapis.com/css?family=Lato');
+</style>
+<div class="loader">
+<div id="movingBallG">
+<div class="movingBallLineG"></div>
+<div id="movingBallG_1" class="movingBallG"></div>
+</div>
+</div>
+   <ul>
+  <li><a class="active" href="index.html">Home</a></li>
+  <li><a href="Math.html">Math</a></li>
+  <li><a href="404.html">Price</a></li>
+  <li><a href="404.html">ToS</a></li>
+  <li style="float:right" style="width:auto;"  onclick="myFunction()" ><a href="Redirect.html">Login</a></li>
+</ul>
+
+</head>
+<body onload="init();"> 
+<div class="center">
+  <h1>Math</h1>
+</div>
+<div class="center">
+<h2>Welcome to Daimon's Math site!</h2>
+</div>
+<div class="alert">
+  <span class="closebtn2" onclick="this.parentElement.style.display='none';">&times;</span>
+  <strong>Login!</strong> Login for more options.
+</div>
+<div class="alert">
+  <span class="closebtn2" onclick="this.parentElement.style.display='none';">&times;</span>
+  <strong>Sharing?</strong> If you are caught sharing login info your account will be terminated.
+</div>
+<canvas id="theMatrix" width="1920" height="1080">
+</canvas>
+<canvas id=c></canvas>
+<canvas id=bg></canvas>
+<script type="text/javascript">
+            // GLOBALS TO PLAY WITH SETTINGS
+            var lines = .01,        // Default .01
+                speed = .05,        // Default .05
+                lineCount = .01,    // Default .01
+                percentage = .5,    // Default .5
+                totalLines = 1;     // Default 1
+
+            var w = c.width = bg.width = window.innerWidth,
+                h = c.height = bg.height = window.innerHeight,
+                ctx = c.getContext('2d'),
+                bgCtx = bg.getContext('2d'),
+                
+                total = w * totalLines,
+                accelleration = speed,
+                
+                size = w/total,
+                repaintColor = 'rgba(51, 51, 51, .04)',
+                colors = [],
+                dots = [],
+                dotsVel = [];
+
+            var portion = 360/total;
+            for(var i = 0; i < total; ++i){
+                colors[i] = portion * i;
+                dots[i] = h;
+                dotsVel[i] = 10;
+            }
+
+            function anim(){
+                window.requestAnimationFrame(anim);
+                
+                ctx.fillStyle = repaintColor;
+                ctx.fillRect(0, 0, w, h);
+                bgCtx.clearRect(0, 0, w, h);
+                
+                for(var i = 0; i < total; ++i){
+                    var currentY = dots[i] - 1;
+                    dots[i] += dotsVel[i] += accelleration;
+                    
+                    ctx.fillStyle = bgCtx.fillStyle = 'hsl('+ colors[i] + ', 80%, ' + percentage * 100 + '%)';
+                    ctx.fillRect(size * i, currentY, size, dotsVel[i] + 1);
+                    
+                    if(dots[i] > h && Math.random() < lineCount){
+                        dots[i] = dotsVel[i] = 0;
+                    }
+                }
+            }
+
+            anim();
+        </script>
+
+
+</body>
+  
+
+  
+  
+  
+
+</body>
+</html>
+<script>
+function myFunction() {
+    alert("Loading Login Page, For a Login Email Me :\nbrfdeveloper@gmail.com");
+}
+</script>
+<script>
+  anime({
+  targets: '',
+  translateX: '50px',
+  delay: function(el, index) {
+    return index * 80;
+  },
+  direction: 'alternate',
+  loop: true
+});
+</script>
